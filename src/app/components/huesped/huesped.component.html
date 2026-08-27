@@ -1,0 +1,226 @@
+<div
+  class="d-flex justify-content-center align-items-center vh-100"
+  style="background: linear-gradient(135deg, #f0f4f8, #d9e2ec)"
+>
+  <form
+    class="p-5 bg-white rounded-4 shadow-lg d-flex justify-content-center align-items-center row"
+    style="width: 850px; max-width: 90%; font-size: 1.1rem"
+    [formGroup]="huespedForm"
+  >
+    <h2>hola</h2>
+    <!-- nombre -->
+    <div class="mb-3">
+      <label for="nombre" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          formControlName="nombre"
+          placeholder="Ingrese el nombre del huesped"
+          minlength="2"
+          maxlength="50"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('nombre')?.invalid &&
+          huespedForm.get('nombre')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('nombre')?.errors?.['required']">
+          El nombre es requerido
+        </span>
+        <span *ngIf="huespedForm.get('nombre')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('nombre')?.errors?.['maxlength']">
+          Máximo 2 caracteres
+        </span>
+      </div>
+    </div>
+    <!-- apellido paterno -->
+    <div class="mb-3">
+      <label for="apellidoPaterno" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="apellidoPaterno"
+          formControlName="apellidoPaterno"
+          placeholder="Ingrese el apellido paterno del huesped"
+          minlength="2"
+          maxlength="50"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('apellidoPaterno')?.invalid &&
+          huespedForm.get('apellidoPaterno')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('apellidoPaterno')?.errors?.['required']">
+          El apellido paterno es requerido
+        </span>
+        <span *ngIf="huespedForm.get('apellidoPaterno')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('apellidoPaterno')?.errors?.['maxlength']">
+          Máximo 2 caracteres
+        </span>
+      </div>
+    </div>
+    <!-- apellido materno -->
+    <div class="mb-3">
+      <label for="apellidoMaterno" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="apellidoMaterno"
+          formControlName="apellidoMaterno"
+          placeholder="Ingrese el apellido materno del huesped"
+          minlength="2"
+          maxlength="50"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('apellidoMaterno')?.invalid &&
+          huespedForm.get('apellidoMaterno')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('apellidoMaterno')?.errors?.['required']">
+          El apellido paterno es requerido
+        </span>
+        <span *ngIf="huespedForm.get('apellidoMaterno')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('apellidoPaterno')?.errors?.['maxlength']">
+          Máximo 2 caracteres
+        </span>
+      </div>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Elije una fecha</mat-label>
+      <input matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <!-- email -->
+    <div class="mb-3">
+      <label for="email" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          placeholder="Ingrese el email del huesped"
+          minlength="2"
+          maxlength="50"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('email')?.invalid && huespedForm.get('email')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('email')?.errors?.['required']">
+          El apellido paterno es requerido
+        </span>
+        <span *ngIf="huespedForm.get('email')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('email')?.errors?.['maxlength']">
+          Máximo 50 caracteres
+        </span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="telefono" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="telefono"
+          formControlName="telefono"
+          placeholder="Ingrese el telefono del huesped"
+          minlength="10"
+          maxlength="10"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('telefono')?.invalid &&
+          huespedForm.get('telefono')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('telefono')?.errors?.['required']">
+          El apellido paterno es requerido
+        </span>
+        <span *ngIf="huespedForm.get('telefono')?.errors?.['minlength']">
+          Solo 10 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('telefono')?.errors?.['maxlength']">
+          Solo 10 caracteres
+        </span>
+      </div>
+    </div>
+    <!-- documento -->
+    <div class="mb-3">
+      <label for="documento" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="documento"
+          formControlName="documento"
+          placeholder="Ingrese el documento del huesped"
+          minlength="2"
+          maxlength="20"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('documento')?.invalid &&
+          huespedForm.get('documento')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('documento')?.errors?.['required']">
+          El apellido paterno es requerido
+        </span>
+        <span *ngIf="huespedForm.get('documento')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('documento')?.errors?.['maxlength']">
+          Máximo 20 caracteres
+        </span>
+      </div>
+    </div>
+    <!-- nacionalidad -->
+    <div class="mb-3">
+      <label for="nacionalidad" class="form-label">
+        <input
+          type="text"
+          class="form-control"
+          id="nacionalidad"
+          formControlName="nacionalidad"
+          placeholder="Ingrese el documento del huesped"
+          minlength="2"
+          maxlength="20"
+        />
+      </label>
+      <div
+        *ngIf="
+          huespedForm.get('nacionalidad')?.invalid &&
+          huespedForm.get('nacionalidad')?.touched
+        "
+      >
+        <span *ngIf="huespedForm.get('nacionalidad')?.errors?.['required']">
+          La nacionalidad es requerida
+        </span>
+        <span *ngIf="huespedForm.get('nacionalidad')?.errors?.['minlength']">
+          Mínimo 2 caracteres
+        </span>
+        <span *ngIf="huespedForm.get('nacionalidad')?.errors?.['maxlength']">
+          Máximo 20 caracteres
+        </span>
+      </div>
+    </div>
+  </form>
+</div>
