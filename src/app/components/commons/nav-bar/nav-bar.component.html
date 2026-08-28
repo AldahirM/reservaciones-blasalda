@@ -13,7 +13,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="showMenuAdmin">
           <a
             class="nav-link"
             routerLink="/dashboard/huespedes"
@@ -56,7 +56,7 @@
         <span class="bottom bar-list"></span>
       </div>
       <section class="menu-container">
-        <div [routerLink]="['/dashboard/huesped/crear']" class="menu-list">
+        <div *ngIf="showMenuAdmin" [routerLink]="['/dashboard/huesped/crear']" class="menu-list">
           Crear huesped
         </div>
         <div class="menu-list">Entertainment</div>
