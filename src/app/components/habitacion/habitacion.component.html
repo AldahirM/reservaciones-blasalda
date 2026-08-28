@@ -1,0 +1,77 @@
+<section class="booking-page">
+    <form class="booking-card" [formGroup]="habitacionForm" (ngSubmit)="onSubmit()">
+        <div class="booking-card__header">
+            <div>
+                <span class="eyebrow">Gestión hotelera</span>
+                <h1>{{ tipoAccion }}</h1>
+                <p>Proporciona los datos requeridos para registrar o modificar la habitación.</p>
+            </div>
+            <div class="booking-icon"><i class="fa fa-bed"></i></div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-heading">
+                <span>01</span>
+                <div>
+                    <h2>Identificación y Tipo</h2>
+                    <p>Indica el número asignado y la categoría.</p>
+                </div>
+            </div>
+            <div class="field-grid">
+                <div class="field-group">
+                    <label for="numeroHabitacion">Número de Habitación</label>
+                    <input id="numeroHabitacion" type="number" min="1" formControlName="numeroHabitacion"
+                        placeholder="Ej. 101" />
+                    <small
+                        *ngIf="habitacionForm.get('numeroHabitacion')?.touched && habitacionForm.get('numeroHabitacion')?.invalid">
+                        Indica un número válido mayor a 0.
+                    </small>
+                </div>
+                <div class="field-group">
+                    <label for="tipo">Tipo de Habitación</label>
+                    <select id="tipo" formControlName="tipo" class="form-control">
+                        <option *ngFor="let t of tiposHabitacion" [value]="t.codigo">
+                            {{ t.descripcion }}
+                        </option>
+                    </select>
+                    <small *ngIf="habitacionForm.get('tipo')?.touched && habitacionForm.get('tipo')?.invalid">
+                        Selecciona un tipo de habitación.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="section-heading">
+                <span>02</span>
+                <div>
+                    <h2>Precio y Capacidad</h2>
+                    <p>Configura la tarifa por noche y la capacidad de personas.</p>
+                </div>
+            </div>
+            <div class="field-grid">
+                <div class="field-group">
+                    <label for="precio">Precio por Noche ($)</label>
+                    <input id="precio" type="number" min="1" formControlName="precio" placeholder="Ej. 1500" />
+                    <small *ngIf="habitacionForm.get('precio')?.touched && habitacionForm.get('precio')?.invalid">
+                        Proporciona un precio válido mayor a 0.
+                    </small>
+                </div>
+                <div class="field-group">
+                    <label for="capacidad">Capacidad (Personas)</label>
+                    <input id="capacidad" type="number" min="1" formControlName="capacidad" placeholder="Ej. 2" />
+                    <small *ngIf="habitacionForm.get('capacidad')?.touched && habitacionForm.get('capacidad')?.invalid">
+                        La capacidad mínima es de 1 persona.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <span><i class="fa fa-info-circle"></i> Revisa los datos antes de guardar.</span>
+            <button type="submit" [disabled]="habitacionForm.invalid">
+                <i class="fa fa-save"></i> {{ isEditingMode ? 'Actualizar' : 'Guardar' }}
+            </button>
+        </div>
+    </form>
+</section>

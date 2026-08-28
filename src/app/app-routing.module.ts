@@ -9,6 +9,8 @@ import { HuespedesComponent } from './components/huespedes/huespedes.component';
 import { HuespedComponent } from './components/huesped/huesped.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { ReservacionComponent } from './components/reservacion/reservacion.component';
+import { HabitacionesComponent } from './components/habitaciones/habitaciones.component';
+import { HabitacionComponent } from './components/habitacion/habitacion.component'; // <--- IMPORTANTE
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -57,6 +59,24 @@ const routes: Routes = [
       {
         path: 'huesped/editar/:id',
         component: HuespedComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
+      },
+      {
+        path: 'habitaciones',
+        component: HabitacionesComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
+      },
+      {
+        path: 'habitacion/crear',
+        component: HabitacionComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
+      },
+      {
+        path: 'habitacion/editar/:id',
+        component: HabitacionComponent,
         canActivate: [AuthGuard],
         data: { roles: [Roles.ADMIN, Roles.USER] },
       },

@@ -27,6 +27,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { ReservacionComponent } from './components/reservacion/reservacion.component';
 import { HabitacionesComponent } from './components/habitaciones/habitaciones.component';
+import { HabitacionComponent } from './components/habitacion/habitacion.component';
 
 export const APP_DATE_FORMATS = {
   parse: {
@@ -53,6 +54,7 @@ export const APP_DATE_FORMATS = {
     ReservacionesComponent,
     ReservacionComponent,
     HabitacionesComponent,
+    HabitacionComponent,
   ],
   imports: [
     BrowserModule,

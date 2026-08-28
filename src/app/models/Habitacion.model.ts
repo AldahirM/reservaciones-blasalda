@@ -7,9 +7,11 @@ export interface HabitacionRequest {
 
 export interface HabitacionResponse {
   id: number;
-  estadoHabitacin: string;
+  idEstadoHabitacion: number;
+  estadoHabitacion: string;
   numeroHabitacion: number;
-  tipo: string;
+  tipoHabitacion: string;
+  idTipoHabitacion: number;
   precio: number;
   capacidad: number;
 }

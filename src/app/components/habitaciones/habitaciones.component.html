@@ -1,1 +1,107 @@
-<p>habitaciones works!</p>
+<section class="reservations-page">
+    <div class="reservations-shell">
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">
+                    <span class="eyebrow-mark"></span> Gestión hotelera
+                </p>
+                <h1>Habitaciones</h1>
+                <p class="page-intro">
+                    Consulta y administra el estado y precios del catálogo de habitaciones.
+                </p>
+            </div>
+            <div class="header-date">
+                <span class="header-date-icon"><i class="fa fa-bed"></i></span>
+                <div>
+                    <span class="header-date-label">Vista general</span>
+                    <strong>Habitaciones activas</strong>
+                </div>
+            </div>
+            <a class="new-reservation-button" routerLink="/dashboard/habitacion/crear">
+                <i class="fa fa-plus"></i> Nueva habitación
+            </a>
+        </header>
+
+        <div class="summary-grid" aria-label="Resumen de habitaciones">
+            <article class="summary-card summary-card--accent">
+                <span class="summary-icon"><i class="fa fa-bed"></i></span>
+                <div>
+                    <span class="summary-label">Total Habitaciones</span>
+                    <strong>{{ habitaciones.length }}</strong>
+                </div>
+            </article>
+            <article class="summary-card">
+                <span class="summary-icon summary-icon--blue"><i class="fa fa-check-circle"></i></span>
+                <div>
+                    <span class="summary-label">Disponibles</span>
+                    <strong>{{ habitaciones.length }}</strong>
+                </div>
+            </article>
+            <article class="summary-card">
+                <span class="summary-icon summary-icon--gold"><i class="fa fa-tags"></i></span>
+                <div>
+                    <span class="summary-label">Registros</span>
+                    <strong>{{ habitaciones.length }}</strong>
+                </div>
+            </article>
+        </div>
+
+        <div class="list-heading">
+            <div>
+                <h2>Habitaciones registradas</h2>
+                <span class="list-count">{{ habitaciones.length }} registros encontrados</span>
+            </div>
+            <span class="live-indicator"><span></span> Información actualizada</span>
+        </div>
+
+        <div class="reservations-list" *ngIf="habitaciones.length; else emptyState">
+            <article class="reservation-card" *ngFor="let habitacion of habitaciones">
+                <div class="reservation-card__topline">
+                    <span class="reservation-id">Habitación #{{ habitacion.numeroHabitacion }}</span>
+                    <span class="status-pill"
+                        [ngClass]="'status-pill--' + (habitacion.estadoHabitacion || 'disponible').toLowerCase().replace(' ', '-')">
+                        {{ habitacion.estadoHabitacion || 'Disponible' }}
+                    </span>
+                </div>
+                <div class="reservation-card__body">
+                    <div class="guest-block">
+                        <div class="guest-avatar"><i class="fa fa-bed"></i></div>
+                        <div>
+                            <span class="field-label">Tipo</span>
+                            <h3>{{ habitacion.tipoHabitacion }}</h3>
+                            <span class="guest-detail">Código Tipo: {{ habitacion.idTipoHabitacion }}</span>
+                        </div>
+                    </div>
+                    <div class="room-block">
+                        <span class="field-label">Capacidad</span>
+                        <strong class="room-number">{{ habitacion.capacidad }} pers.</strong>
+                    </div>
+                    <div class="stay-block">
+                        <div class="stay-date">
+                            <span class="field-label">Precio / Noche</span>
+                            <strong>${{ habitacion.precio }} MXN</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="reservation-card__actions">
+                    <a class="action-button action-button--edit"
+                        [routerLink]="['/dashboard/habitacion/editar', habitacion.id]">
+                        <i class="fa fa-pencil"></i> Actualizar
+                    </a>
+                    <button type="button" class="action-button action-button--delete"
+                        (click)="eliminarHabitacion(habitacion.id)">
+                        <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                </div>
+            </article>
+        </div>
+
+        <ng-template #emptyState>
+            <div class="empty-state">
+                <div class="empty-state__icon"><i class="fa fa-bed"></i></div>
+                <h2>Aún no hay habitaciones</h2>
+                <p>Cuando registres una nueva habitación, aparecerá aquí.</p>
+            </div>
+        </ng-template>
+    </div>
+</section>
