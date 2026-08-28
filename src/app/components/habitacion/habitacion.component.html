@@ -30,7 +30,8 @@
                 <div class="field-group">
                     <label for="tipo">Tipo de Habitación</label>
                     <select id="tipo" formControlName="tipo" class="form-control">
-                        <option *ngFor="let t of tiposHabitacion" [value]="t.codigo">
+                        <option [ngValue]="null">Selecciona un tipo de habitación</option>
+                        <option *ngFor="let t of tiposHabitacion" [ngValue]="t.codigo">
                             {{ t.descripcion }}
                         </option>
                     </select>

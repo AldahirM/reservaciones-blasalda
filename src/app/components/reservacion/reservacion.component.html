@@ -18,19 +18,27 @@
 			</div>
 			<div class="field-grid">
 				<div class="field-group">
-					<label for="idHuesped">ID del huésped</label>
-					<input id="idHuesped" type="number" min="1" formControlName="idHuesped" placeholder="Ej. 104" />
-					<small
-						*ngIf="reservacionForm.get('idHuesped')?.touched && reservacionForm.get('idHuesped')?.invalid">El
-						ID del huésped es requerido.</small>
+					<label for="idHuesped">Huésped</label>
+					<select id="idHuesped" formControlName="idHuesped">
+						<option [ngValue]="null">Selecciona un huésped</option>
+						<option *ngFor="let huesped of huespedes" [value]="huesped.id">
+							{{ huesped.nombre }} {{ huesped.apellidoPaterno }} {{ huesped.apellidoMaterno }}
+						</option>
+					</select>
+					<small *ngIf="reservacionForm.get('idHuesped')?.touched && reservacionForm.get('idHuesped')?.invalid">Selecciona un huésped.</small>
+					<small *ngIf="!huespedes.length">No hay huéspedes registrados.</small>
 				</div>
 				<div class="field-group">
-					<label for="idHabitacion">Número de habitación</label>
-					<input id="idHabitacion" type="number" min="1" formControlName="idHabitacion"
-						placeholder="Ej. 208" />
+					<label for="idHabitacion">Habitación disponible</label>
+					<select id="idHabitacion" formControlName="idHabitacion">
+						<option [ngValue]="null">Selecciona una habitación</option>
+						<option *ngFor="let habitacion of habitacionesDisponibles" [ngValue]="habitacion.id">
+							Habitación {{ habitacion.numeroHabitacion }} · {{ habitacion.tipoHabitacion }} · {{ habitacion.capacidad }} pers.
+						</option>
+					</select>
 					<small
-						*ngIf="reservacionForm.get('idHabitacion')?.touched && reservacionForm.get('idHabitacion')?.invalid">Indica
-						una habitación válida.</small>
+						*ngIf="reservacionForm.get('idHabitacion')?.touched && reservacionForm.get('idHabitacion')?.invalid">Selecciona una habitación disponible.</small>
+					<small *ngIf="!habitacionesDisponibles.length">No hay habitaciones disponibles.</small>
 				</div>
 			</div>
 		</div>

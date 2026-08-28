@@ -7,6 +7,10 @@ import {
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HabitacionesService } from '../../services/habitaciones.service';
+import { HabitacionResponse } from '../../models/Habitacion.model';
+import { HuespedesService } from '../../services/huespedes.service';
+import { HuespedResponse } from '../../models/Huesped.model';
 
 @Component({
   selector: 'app-reservacion',
@@ -21,12 +25,16 @@ export class ReservacionComponent implements OnInit {
 
   idReservacion: number | null = null;
   reservaActual?: ReservacionResponse;
+  habitacionesDisponibles: HabitacionResponse[] = [];
+  huespedes: HuespedResponse[] = [];
 
   constructor(
     private reservacionesService: ReservacionesService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
+    private habitacionesService: HabitacionesService,
+    private huespedesService: HuespedesService,
   ) {
     this.reservacionForm = this.fb.group({
       idHuesped: [null, [Validators.required, Validators.min(1)]],
@@ -37,12 +45,40 @@ export class ReservacionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cargarHabitacionesDisponibles();
+    this.cargarHuespedes();
     this.idReservacion = Number(this.route.snapshot.paramMap.get('id'));
     this.isEditingMode = !!this.idReservacion;
     if (this.isEditingMode) {
       this.obtenerReservacion();
       this.tipoAccion = 'Editando reservación';
     }
+  }
+
+  cargarHuespedes(): void {
+    this.huespedesService.getHuespedes().subscribe({
+      next: (huespedes) => {
+        this.huespedes = huespedes;
+      },
+      error: (error) => {
+        console.error(error);
+        Swal.fire('Error', 'No se pudieron cargar los huéspedes', 'error');
+      },
+    });
+  }
+
+  cargarHabitacionesDisponibles(): void {
+    this.habitacionesService.getHabitaciones().subscribe({
+      next: (habitaciones) => {
+        this.habitacionesDisponibles = habitaciones.filter(
+          (habitacion) => habitacion.idEstadoHabitacion === 1,
+        );
+      },
+      error: (error) => {
+        console.error(error);
+        Swal.fire('Error', 'No se pudieron cargar las habitaciones disponibles', 'error');
+      },
+    });
   }
 
   obtenerReservacion(): void {
@@ -108,7 +144,7 @@ export class ReservacionComponent implements OnInit {
     }
 
     const datosReservacion: ReservacionRequest = {
-      idHuesped: this.reservacionForm.value.idHuesped,
+      idHuesped: Number(this.reservacionForm.value.idHuesped),
       idHabitacion: this.reservacionForm.value.idHabitacion,
       fechaEntrada: this.formatearFecha(
         this.reservacionForm.value.fechaEntrada,

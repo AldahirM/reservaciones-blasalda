@@ -34,7 +34,7 @@ export class HabitacionComponent implements OnInit {
   ) {
     this.habitacionForm = this.fb.group({
       numeroHabitacion: [null, [Validators.required, Validators.min(1)]],
-      tipo: [1, [Validators.required]],
+      tipo: [null, [Validators.required]],
       precio: [null, [Validators.required, Validators.min(1)]],
       capacidad: [1, [Validators.required, Validators.min(1)]]
     });

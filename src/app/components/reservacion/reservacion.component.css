@@ -46,6 +46,8 @@ h1 { margin-bottom: 10px; font-family: Georgia, 'Times New Roman', serif; font-s
 .field-group label { margin-bottom: 8px; color: #52676d; font-size: .78rem; font-weight: 600; }
 .field-group input { width: 100%; box-sizing: border-box; padding: 12px 13px; border: 1px solid #dbe4e4; outline: none; color: #304850; background: #fbfcfc; font-size: .92rem; transition: border-color .2s, box-shadow .2s; }
 .field-group input:focus { border-color: #bf7650; box-shadow: 0 0 0 3px rgba(191, 118, 80, .12); }
+.field-group select { width: 100%; box-sizing: border-box; padding: 12px 13px; border: 1px solid #dbe4e4; outline: none; color: #304850; background: #fbfcfc; font-size: .92rem; }
+.field-group select:focus { border-color: #bf7650; box-shadow: 0 0 0 3px rgba(191, 118, 80, .12); }
 .field-group small { margin-top: 6px; color: #b45d5d; font-size: .72rem; }
 mat-form-field { width: 100%; }
 .form-actions { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 32px; padding: 22px 44px; border-top: 1px solid #edf0f0; background: #fbfcfc; }
