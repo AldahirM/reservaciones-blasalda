@@ -7,6 +7,8 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { Roles } from './constants/Roles';
 import { HuespedesComponent } from './components/huespedes/huespedes.component';
 import { HuespedComponent } from './components/huesped/huesped.component';
+import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
+import { ReservacionComponent } from './components/reservacion/reservacion.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +29,24 @@ const routes: Routes = [
         component: HuespedesComponent,
         canActivate: [AuthGuard],
         data: { roles: [Roles.ADMIN] },
+      },
+      {
+        path: 'reservaciones',
+        component: ReservacionesComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
+      },
+      {
+        path: 'reservacion/crear',
+        component: ReservacionComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
+      },
+      {
+        path: 'reservacion/editar/:id',
+        component: ReservacionComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Roles.ADMIN, Roles.USER] },
       },
       {
         path: 'huesped/crear',

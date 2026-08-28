@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/dashboard">Citas App</a>
+    <a class="navbar-brand" routerLink="/dashboard">BLASALDA</a>
     <button
       class="navbar-toggler"
       data-bs-toggle="collapse"
@@ -29,14 +29,6 @@
             >Reservaciones</a
           >
         </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="/dashboard/citas"
-            routerLinkActive="active"
-            >Citas</a
-          >
-        </li>
         <li class="nav-item" *ngIf="showMenuAdmin">
           <a
             class="nav-link"
@@ -45,20 +37,32 @@
             >Habitaciones</a
           >
         </li>
+        <li class="nav-item" *ngIf="showMenuAdmin">
+          <a
+            class="nav-link"
+            routerLink="/dashboard/usuarios"
+            routerLinkActive="active"
+            >Usuarios</a
+          >
+        </li>
       </ul>
     </div>
-    <div class="d-flex align-items-center">
-      <span class="text-light me-2 d-flex align-items-center">
-        <i class="fas fa-user me-2"></i>
-        <span *ngIf="username">Hola, {{ username }}!</span>
-      </span>
-      <button
-        class="btn btn-outline-light btn-sm d-flex align-items-center"
-        (click)="logout()"
-      >
-        <i class="fas fa-sign-out-alt me-2"></i>
-        Cerrar sesión
-      </button>
-    </div>
+    <label class="main">
+      Menu
+      <input class="inp" checked="" type="checkbox" />
+      <div class="bar">
+        <span class="top bar-list"></span>
+        <span class="middle bar-list"></span>
+        <span class="bottom bar-list"></span>
+      </div>
+      <section class="menu-container">
+        <div [routerLink]="['/dashboard/huesped/crear']" class="menu-list">
+          Crear huesped
+        </div>
+        <div class="menu-list">Entertainment</div>
+        <div class="menu-list">Blog</div>
+        <div (click)="logout()" class="menu-list">Cerrar sesión</div>
+      </section>
+    </label>
   </div>
 </nav>

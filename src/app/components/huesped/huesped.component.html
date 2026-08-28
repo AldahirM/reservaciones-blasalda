@@ -4,10 +4,11 @@
 >
   <form
     class="p-5 bg-white rounded-4 shadow-lg d-flex justify-content-center align-items-center row"
-    style="width: 850px; max-width: 90%; font-size: 1.1rem"
+    style="width: 670px; max-width: 90%; font-size: 1.1rem"
     [formGroup]="huespedForm"
+    (ngSubmit)="onSubmit()"
   >
-    <h2>hola</h2>
+    <h2>{{ tipoAccion }}</h2>
     <!-- nombre -->
     <div class="mb-3">
       <label for="nombre" class="form-label">
@@ -99,8 +100,12 @@
       </div>
     </div>
     <mat-form-field appearance="fill">
-      <mat-label>Elije una fecha</mat-label>
-      <input matInput [matDatepicker]="picker" />
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input
+        matInput
+        formControlName="fechaNacimiento"
+        [matDatepicker]="picker"
+      />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -133,6 +138,21 @@
         </span>
       </div>
     </div>
+    <p>
+      Documento:
+      <mat-button-toggle-group
+        formControlName="tipoDocumento"
+        aria-label="Tipo de Documento"
+      >
+        <mat-button-toggle
+          *ngFor="let tipoDocumento of tipoDocumentos"
+          [value]="tipoDocumento"
+        >
+          <!-- 2. El value se enlaza dinámicamente -->
+          {{ tipoDocumento }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </p>
     <div class="mb-3">
       <label for="telefono" class="form-label">
         <input
@@ -221,6 +241,15 @@
           Máximo 20 caracteres
         </span>
       </div>
+    </div>
+    <div class="text-center">
+      <button
+        type="submit"
+        class="btn btn-success px-4"
+        [disabled]="huespedForm.invalid"
+      >
+        <i class="fa fa-save"></i> Guardar
+      </button>
     </div>
   </form>
 </div>

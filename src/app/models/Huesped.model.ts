@@ -1,8 +1,10 @@
+import { TipoDocumento } from "../constants/TipoDocumento";
+
 export interface HuespedRequest {
   nombre: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
   email: string;
   telefono: string;
   tipoDocumento: number;
@@ -12,15 +14,18 @@ export interface HuespedRequest {
 export interface HuespedResponse {
   id: number;
   nombre: string;
-  edad: string;
+  apellidoPaterno: string;
+  apellidoMaterno: string;
+  edad: Date;
   email: string;
   telefono: string;
-  tipoDocumento: string;
+  tipoDocumento: TipoDocumento;
   documento: string;
   nacionalidad: string;
 }
 
 export interface DatosHuesped {
+  id?: number;
   nombre: string;
   edad: string;
   telefono: string;

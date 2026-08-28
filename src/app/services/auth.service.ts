@@ -19,7 +19,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
   ) {
-    this.decodeToken(); // Hay que decodificar el token al iniciarl el servicio
+    this.decodeToken();
   }
 
   login(username: string, password: string) {

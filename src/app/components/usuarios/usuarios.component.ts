@@ -66,6 +66,7 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     const datoUsuario: UsuarioRequest = this.usuarioForm.value;
 
     if (this.isEditMode && this.selectedUsuario) {
+      
     } else {
       // REGISTRADO
       this.usuariosService.postUsuario(datoUsuario).subscribe({

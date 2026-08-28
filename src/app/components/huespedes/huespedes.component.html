@@ -251,9 +251,21 @@
       <div class="card__title">{{ huesped.nombre }}</div>
       <div class="card__subtitle">{{ huesped.telefono }}</div>
       <div class="card__wrapper">
-        <button class="card__btn" [routerLink]="['/dashboard/huesped/editar', huesped.id]">Editar</button>
-        <button class="card__btn card__btn-solid">Eliminar</button>
-        <button class="card__btn" [routerLink]="['/dashboard/huesped/crear']">Ver</button>
+        <button
+          class="card__btn"
+          [routerLink]="['/dashboard/huesped/editar', huesped.id]"
+        >
+          Editar
+        </button>
+        <button
+          class="card__btn card__btn-solid"
+          (click)="eliminarHuesped(huesped.id, huesped.nombre)"
+        >
+          Eliminar
+        </button>
+        <button class="card__btn" [routerLink]="['/dashboard/huesped/crear']">
+          Ver
+        </button>
       </div>
     </div>
   </div>

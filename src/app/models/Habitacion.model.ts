@@ -15,6 +15,7 @@ export interface HabitacionResponse {
 }
 
 export interface DatosHabitacion{
+  id?: number;
     numeroHabitacion: number;
     precio: number;
     capacidad: number;

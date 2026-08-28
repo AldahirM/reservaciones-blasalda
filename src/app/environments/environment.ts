@@ -7,5 +7,5 @@ export const environment = {
   apiUsuarios: localhost.concat(':9000/admin/usuarios'),
   huespedesUrl: gateway.concat('/huespedes'),
   habitacionesUrl: gateway.concat('/habitaciones'),
-  reservacionesUrl: gateway.concat('/huespedes'),
+  reservacionesUrl: gateway.concat('/reservaciones'),
 };

@@ -1,0 +1,51 @@
+<section class="booking-page">
+	<form class="booking-card" [formGroup]="reservacionForm" (ngSubmit)="onSubmit()">
+		<div class="booking-card__header">
+			<div>
+				<span class="eyebrow">Gestión hotelera</span>
+				<h1>{{ tipoAccion }}</h1>
+				<p>Registra los datos de la estancia y asigna una habitación.</p>
+			</div>
+			<div class="booking-icon"><i class="fa fa-calendar-check-o"></i></div>
+		</div>
+
+		<div class="form-section">
+			<div class="section-heading"><span>01</span><div><h2>Asignación</h2><p>Indica quién se hospedará y la habitación.</p></div></div>
+			<div class="field-grid">
+				<div class="field-group">
+					<label for="idHuesped">ID del huésped</label>
+					<input id="idHuesped" type="number" min="1" formControlName="idHuesped" placeholder="Ej. 104" />
+					  <small *ngIf="reservacionForm.get('idHuesped')?.touched && reservacionForm.get('idHuesped')?.invalid">El ID del huésped es requerido.</small>
+				</div>
+				<div class="field-group">
+					<label for="idHabitacion">Número de habitación</label>
+					<input id="idHabitacion" type="number" min="1" formControlName="idHabitacion" placeholder="Ej. 208" />
+					<small *ngIf="reservacionForm.get('idHabitacion')?.touched && reservacionForm.get('idHabitacion')?.invalid">Indica una habitación válida.</small>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-section">
+			<div class="section-heading"><span>02</span><div><h2>Periodo de estancia</h2><p>Selecciona las fechas de llegada y salida.</p></div></div>
+			<div class="field-grid">
+				<mat-form-field appearance="outline">
+					<mat-label>Fecha de entrada</mat-label>
+					<input matInput formControlName="fechaEntrada" [matDatepicker]="entradaPicker" />
+					<mat-datepicker-toggle matIconSuffix [for]="entradaPicker"></mat-datepicker-toggle>
+					<mat-datepicker #entradaPicker></mat-datepicker>
+				</mat-form-field>
+				<mat-form-field appearance="outline">
+					<mat-label>Fecha de salida</mat-label>
+					<input matInput formControlName="fechaSalida" [matDatepicker]="salidaPicker" />
+					<mat-datepicker-toggle matIconSuffix [for]="salidaPicker"></mat-datepicker-toggle>
+					<mat-datepicker #salidaPicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div>
+
+		<div class="form-actions">
+			<span><i class="fa fa-info-circle"></i> Revisa los datos antes de guardar.</span>
+			<button type="submit" [disabled]="reservacionForm.invalid"><i class="fa fa-save"></i> {{ isEditingMode ? 'Actualizar' : 'Guardar' }}</button>
+		</div>
+	</form>
+</section>

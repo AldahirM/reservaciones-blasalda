@@ -15,9 +15,30 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { HuespedesComponent } from './components/huespedes/huespedes.component';
 import { HuespedComponent } from './components/huesped/huesped.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import {
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+} from '@angular/material/core';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatHint } from '@angular/material/form-field';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
+import { ReservacionComponent } from './components/reservacion/reservacion.component';
+import { HabitacionesComponent } from './components/habitaciones/habitaciones.component';
+
+export const APP_DATE_FORMATS = {
+  parse: {
+    dateInput: { day: '2-digit', month: '2-digit', year: 'numeric' },
+  },
+  display: {
+    dateInput: { day: '2-digit', month: '2-digit', year: 'numeric' },
+    monthYearLabel: { month: 'long', year: 'numeric' },
+    dateA11yLabel: { day: '2-digit', month: 'long', year: 'numeric' },
+    monthYearA11yLabel: { month: 'long', year: 'numeric' },
+  },
+};
 
 @NgModule({
   declarations: [
@@ -29,6 +50,9 @@ import { MatInputModule } from '@angular/material/input';
     UsuariosComponent,
     HuespedesComponent,
     HuespedComponent,
+    ReservacionesComponent,
+    ReservacionComponent,
+    HabitacionesComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,11 +64,15 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatHint,
+    MatButtonToggleModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+
   ],
   bootstrap: [AppComponent],
 })

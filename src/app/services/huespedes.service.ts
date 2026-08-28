@@ -51,9 +51,9 @@ export class HuespedesService {
         }),
       );
   }
-  deleteHuesped(huespedId: number): Observable<HuespedResponse> {
+  deleteHuesped(huespedId: number): Observable<void> {
     return this.http
-      .delete<HuespedResponse>(`${this.apiUrl}/${huespedId}`)
+      .delete<void>(`${this.apiUrl}/${huespedId}`)
       .pipe(
         catchError((error) => {
           console.error('Error al eliminar el usuario', error);
