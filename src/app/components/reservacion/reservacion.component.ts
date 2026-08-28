@@ -5,7 +5,7 @@ import {
   ReservacionResponse,
 } from '../../models/Reservaciones.model';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,16 +15,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './reservacion.component.css',
 })
 export class ReservacionComponent implements OnInit {
-  reservacion: ReservacionResponse | null = null;
   isEditingMode: boolean = false;
   tipoAccion: string = 'Creando reservación';
   reservacionForm: FormGroup;
 
   idReservacion: number | null = null;
+  reservaActual?: ReservacionResponse;
 
   constructor(
     private reservacionesService: ReservacionesService,
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
   ) {
     this.reservacionForm = this.fb.group({
@@ -34,6 +35,7 @@ export class ReservacionComponent implements OnInit {
       fechaSalida: [null, Validators.required],
     });
   }
+
   ngOnInit(): void {
     this.idReservacion = Number(this.route.snapshot.paramMap.get('id'));
     this.isEditingMode = !!this.idReservacion;
@@ -47,19 +49,56 @@ export class ReservacionComponent implements OnInit {
     this.reservacionesService.getReservacion(this.idReservacion!).subscribe({
       next: (resp) => {
         console.log(resp);
-        this.reservacion = resp;
+        // CORRECCIÓN: Asignar la respuesta directamente a reservaActual
+        this.reservaActual = resp;
+
         this.reservacionForm.patchValue({
-          idHuesped: resp.datosHuesped?.id,
-          idHabitacion: resp.datosHabitacion?.id,
+          idHuesped: resp.datosHuesped?.id || null,
+          idHabitacion: resp.datosHabitacion?.id || null,
           fechaEntrada: this.convertirAFecha(resp.fechaEntrada),
           fechaSalida: this.convertirAFecha(resp.fechaSalida),
         });
       },
       error: (error) => {
-        console.log(error);
-        Swal.fire('Error', 'No se pudieron cargar las reservaciones', 'error');
+        console.error(error);
+        Swal.fire('Error', 'No se pudo cargar la reservación', 'error');
       },
     });
+  }
+
+  procesarCambioEstado(nuevoIdEstado: number): void {
+    if (!this.reservaActual?.id) {
+      Swal.fire('Error', 'No se encontró la información de la reserva', 'error');
+      return;
+    }
+
+    this.reservacionesService
+      .cambiarEstadoReservacion(this.reservaActual.id, nuevoIdEstado)
+      .subscribe({
+        next: () => {
+          // Actualización de estado en tiempo real
+          this.reservaActual!.idEstadoReserva = nuevoIdEstado;
+
+          const esCheckIn = nuevoIdEstado === 2;
+          const accion = esCheckIn ? 'Check-In' : 'Check-Out';
+
+          // Mostrar alerta y esperar al clic en "OK" para redirigir
+          Swal.fire({
+            title: '¡Éxito!',
+            text: `Se ha realizado el ${accion} correctamente.`,
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then((result) => {
+            if (result.isConfirmed || result.isDismissed) {
+              this.router.navigate(['/dashboard/reservaciones']);
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Error al cambiar el estado', err);
+          Swal.fire('Error', 'No se pudo cambiar el estado de la reservación', 'error');
+        }
+      });
   }
 
   onSubmit(): void {
@@ -79,9 +118,9 @@ export class ReservacionComponent implements OnInit {
     console.log(datosReservacion);
     const request = this.isEditingMode
       ? this.reservacionesService.putReservacion(
-          datosReservacion,
-          this.idReservacion!,
-        )
+        datosReservacion,
+        this.idReservacion!,
+      )
       : this.reservacionesService.postReservacion(datosReservacion);
 
     request.subscribe({
@@ -93,7 +132,7 @@ export class ReservacionComponent implements OnInit {
         );
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
         Swal.fire('Error', 'No se pudo guardar la reservación', 'error');
       },
     });
@@ -101,8 +140,9 @@ export class ReservacionComponent implements OnInit {
 
   private convertirAFecha(valor: Date | string): Date | null {
     if (valor instanceof Date) return valor;
+    if (!valor) return null;
 
-    const partes = valor.split('T')[0].split('-').map(Number);
+    const partes = String(valor).split('T')[0].split('-').map(Number);
     if (partes.length === 3) {
       return new Date(partes[0], partes[1] - 1, partes[2]);
     }

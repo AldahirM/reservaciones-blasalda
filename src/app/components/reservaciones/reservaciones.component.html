@@ -13,8 +13,7 @@
       <div class="header-date">
         <span class="header-date-icon"><i class="fa fa-calendar-o"></i></span>
         <div>
-          <span class="header-date-label">Vista general</span
-          ><strong>Reservas activas</strong>
+          <span class="header-date-label">Vista general</span><strong>Reservas activas</strong>
         </div>
       </div>
       <a class="new-reservation-button" routerLink="/dashboard/reservacion/crear">
@@ -23,29 +22,28 @@
     </header>
 
     <div class="summary-grid" aria-label="Resumen de reservaciones">
+      <!-- Card 1: Total Reservaciones -->
       <article class="summary-card summary-card--accent">
         <span class="summary-icon"><i class="fa fa-calendar-check-o"></i></span>
         <div>
-          <span class="summary-label">Reservaciones</span
-          ><strong>{{ reservaciones.length }}</strong>
+          <span class="summary-label">Reservaciones</span>
+          <strong>{{ totalReservacionesCount }}</strong>
         </div>
       </article>
+
       <article class="summary-card">
-        <span class="summary-icon summary-icon--blue"
-          ><i class="fa fa-sign-in"></i
-        ></span>
+        <span class="summary-icon summary-icon--blue"><i class="fa fa-sign-in"></i></span>
         <div>
-          <span class="summary-label">Próximas entradas</span
-          ><strong>{{ reservaciones.length }}</strong>
+          <span class="summary-label">Próximas entradas</span>
+          <strong>{{ proximasEntradasCount }}</strong>
         </div>
       </article>
+      
       <article class="summary-card">
-        <span class="summary-icon summary-icon--gold"
-          ><i class="fa fa-bed"></i
-        ></span>
+        <span class="summary-icon summary-icon--gold"><i class="fa fa-bed"></i></span>
         <div>
-          <span class="summary-label">Habitaciones ocupadas</span
-          ><strong>{{ reservaciones.length }}</strong>
+          <span class="summary-label">Habitaciones ocupadas</span>
+          <strong>{{ habitacionesOcupadasCount }}</strong>
         </div>
       </article>
     </div>
@@ -53,28 +51,18 @@
     <div class="list-heading">
       <div>
         <h2>Reservaciones recientes</h2>
-        <span class="list-count"
-          >{{ reservaciones.length }} registros encontrados</span
-        >
+        <span class="list-count">{{ reservaciones.length }} registros encontrados</span>
       </div>
       <span class="live-indicator"><span></span> Información actualizada</span>
     </div>
 
-    <div
-      class="reservations-list"
-      *ngIf="reservaciones.length; else emptyState"
-    >
-      <article
-        class="reservation-card"
-        *ngFor="let reservacion of reservaciones"
-      >
+    <div class="reservations-list" *ngIf="reservaciones.length; else emptyState">
+      <article class="reservation-card" *ngFor="let reservacion of reservaciones">
         <div class="reservation-card__topline">
           <span class="reservation-id">Reserva #{{ reservacion.id }}</span>
-          <span
-            class="status-pill"
-            [ngClass]="'status-pill--' + (reservacion.estadoReserva || 'pendiente').toLowerCase().replace(' ', '-')"
-            >{{ reservacion.estadoReserva || "Pendiente" }}</span
-          >
+          <span class="status-pill"
+            [ngClass]="'status-pill--' + (reservacion.estadoReserva || 'pendiente').toLowerCase().replace(' ', '-')">{{
+            reservacion.estadoReserva || "Pendiente" }}</span>
         </div>
         <div class="reservation-card__body">
           <div class="guest-block">
@@ -84,37 +72,28 @@
               <h3>{{ reservacion.datosHuesped?.nombre || "Huésped no disponible" }}</h3>
               <span class="guest-detail">{{
                 reservacion.datosHuesped?.email || "Sin correo registrado"
-              }}</span
-              ><span class="guest-detail"
-                ><i class="fa fa-phone"></i>
-                {{ reservacion.datosHuesped?.telefono || "Sin teléfono registrado" }}</span
-              >
+                }}</span><span class="guest-detail"><i class="fa fa-phone"></i>
+                {{ reservacion.datosHuesped?.telefono || "Sin teléfono registrado" }}</span>
             </div>
           </div>
           <div class="room-block">
-            <span class="field-label">Habitación</span
-            ><strong class="room-number">{{
+            <span class="field-label">Habitación</span><strong class="room-number">{{
               reservacion.datosHabitacion?.numeroHabitacion || "-"
-            }}</strong
-            ><span class="room-type">{{
+              }}</strong><span class="room-type">{{
               reservacion.datosHabitacion?.estadoHabitacion || "Habitación no disponible"
-            }}</span>
+              }}</span>
           </div>
           <div class="stay-block">
             <div class="stay-date">
-              <span class="field-label">Entrada</span
-              ><strong>{{
+              <span class="field-label">Entrada</span><strong>{{
                 reservacion.fechaEntrada | date: "dd MMM yyyy"
-              }}</strong>
+                }}</strong>
             </div>
-            <span class="stay-arrow"
-              ><i class="fa fa-long-arrow-right"></i
-            ></span>
+            <span class="stay-arrow"><i class="fa fa-long-arrow-right"></i></span>
             <div class="stay-date">
-              <span class="field-label">Salida</span
-              ><strong>{{
+              <span class="field-label">Salida</span><strong>{{
                 reservacion.fechaSalida | date: "dd MMM yyyy"
-              }}</strong>
+                }}</strong>
             </div>
           </div>
         </div>
@@ -122,10 +101,7 @@
           <button type="button" class="action-button action-button--view">
             <i class="fa fa-eye"></i> Ver
           </button>
-          <a
-            class="action-button action-button--edit"
-            [routerLink]="['/dashboard/reservacion/editar', reservacion.id]"
-          >
+          <a class="action-button action-button--edit" [routerLink]="['/dashboard/reservacion/editar', reservacion.id]">
             <i class="fa fa-pencil"></i> Actualizar
           </a>
           <button type="button" class="action-button action-button--delete">

@@ -72,4 +72,8 @@ export class ReservacionesService {
         }),
       );
   }
+  cambiarEstadoReservacion(idReserva: number, idEstado: number): Observable<void> {
+  // Ajusta 'this.apiUrl' a la ruta base de tu controlador de reservaciones
+  return this.http.patch<void>(`${this.apiUrl}/${idReserva}/estado/${idEstado}`, {});
+}
 }

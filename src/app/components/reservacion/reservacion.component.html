@@ -10,23 +10,38 @@
 		</div>
 
 		<div class="form-section">
-			<div class="section-heading"><span>01</span><div><h2>Asignación</h2><p>Indica quién se hospedará y la habitación.</p></div></div>
+			<div class="section-heading"><span>01</span>
+				<div>
+					<h2>Asignación</h2>
+					<p>Indica quién se hospedará y la habitación.</p>
+				</div>
+			</div>
 			<div class="field-grid">
 				<div class="field-group">
 					<label for="idHuesped">ID del huésped</label>
 					<input id="idHuesped" type="number" min="1" formControlName="idHuesped" placeholder="Ej. 104" />
-					  <small *ngIf="reservacionForm.get('idHuesped')?.touched && reservacionForm.get('idHuesped')?.invalid">El ID del huésped es requerido.</small>
+					<small
+						*ngIf="reservacionForm.get('idHuesped')?.touched && reservacionForm.get('idHuesped')?.invalid">El
+						ID del huésped es requerido.</small>
 				</div>
 				<div class="field-group">
 					<label for="idHabitacion">Número de habitación</label>
-					<input id="idHabitacion" type="number" min="1" formControlName="idHabitacion" placeholder="Ej. 208" />
-					<small *ngIf="reservacionForm.get('idHabitacion')?.touched && reservacionForm.get('idHabitacion')?.invalid">Indica una habitación válida.</small>
+					<input id="idHabitacion" type="number" min="1" formControlName="idHabitacion"
+						placeholder="Ej. 208" />
+					<small
+						*ngIf="reservacionForm.get('idHabitacion')?.touched && reservacionForm.get('idHabitacion')?.invalid">Indica
+						una habitación válida.</small>
 				</div>
 			</div>
 		</div>
 
 		<div class="form-section">
-			<div class="section-heading"><span>02</span><div><h2>Periodo de estancia</h2><p>Selecciona las fechas de llegada y salida.</p></div></div>
+			<div class="section-heading"><span>02</span>
+				<div>
+					<h2>Periodo de estancia</h2>
+					<p>Selecciona las fechas de llegada y salida.</p>
+				</div>
+			</div>
 			<div class="field-grid">
 				<mat-form-field appearance="outline">
 					<mat-label>Fecha de entrada</mat-label>
@@ -45,7 +60,22 @@
 
 		<div class="form-actions">
 			<span><i class="fa fa-info-circle"></i> Revisa los datos antes de guardar.</span>
-			<button type="submit" [disabled]="reservacionForm.invalid"><i class="fa fa-save"></i> {{ isEditingMode ? 'Actualizar' : 'Guardar' }}</button>
+
+			<ng-container *ngIf="isEditingMode && reservaActual">
+				<button type="button" *ngIf="reservaActual.idEstadoReserva === 1" (click)="procesarCambioEstado(2)"
+					style="background-color: #2c454d; margin-right: 10px;">
+					<i class="fa fa-sign-in"></i> Check-In
+				</button>
+
+				<button type="button" *ngIf="reservaActual.idEstadoReserva === 2" (click)="procesarCambioEstado(3)"
+					style="background-color: #2c454d; margin-right: 10px;">
+					<i class="fa fa-sign-out"></i> Check-Out
+				</button>
+			</ng-container>
+
+			<button type="submit" [disabled]="reservacionForm.invalid">
+				<i class="fa fa-save"></i> {{ isEditingMode ? 'Actualizar' : 'Guardar' }}
+			</button>
 		</div>
 	</form>
 </section>

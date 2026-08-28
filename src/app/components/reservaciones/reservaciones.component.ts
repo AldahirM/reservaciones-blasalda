@@ -31,7 +31,7 @@ export class ReservacionesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private reservacionesService: ReservacionesService,
-  ) {}
+  ) { }
 
   listarReservaciones(): void {
     this.reservacionesService.getReservaciones().subscribe({
@@ -45,5 +45,20 @@ export class ReservacionesComponent implements OnInit {
         Swal.fire('Error', 'No se pudieron cargar las reservaciones', 'error');
       },
     });
+  }
+
+  // Contabiliza las reservaciones activas en estado CONFIRMADA (ID 1)
+  get proximasEntradasCount(): number {
+    return this.reservaciones.filter(r => r.idEstadoReserva === 1).length;
+  }
+
+  // Contabiliza las reservaciones en estado EN_CURSO (ID 2)
+  get habitacionesOcupadasCount(): number {
+    return this.reservaciones.filter(r => r.idEstadoReserva === 2).length;
+  }
+
+  // Total de reservaciones activas recibidas
+  get totalReservacionesCount(): number {
+    return this.reservaciones.length;
   }
 }

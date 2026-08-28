@@ -14,5 +14,6 @@ export interface ReservacionResponse {
   datosHabitacion?: DatosHabitacion;
   fechaEntrada: Date;
   fechaSalida: Date;
+  idEstadoReserva: number;
   estadoReserva: string;
 }
