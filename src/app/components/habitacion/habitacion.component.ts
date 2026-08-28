@@ -16,6 +16,7 @@ export class HabitacionComponent implements OnInit {
   isEditingMode: boolean = false;
   tipoAccion: string = 'Creando habitación';
   idHabitacion: number | null = null;
+  habitacionActual?: HabitacionResponse;
 
   // Opciones alineadas al enum TipoHabitacion del Backend
   tiposHabitacion = [
@@ -54,6 +55,7 @@ export class HabitacionComponent implements OnInit {
     this.habitacionesService.getHabitacion(this.idHabitacion!).subscribe({
       next: (resp: HabitacionResponse) => {
         if (resp) {
+          this.habitacionActual = resp;
           this.habitacionForm.patchValue({
             numeroHabitacion: resp.numeroHabitacion,
             tipo: resp.idTipoHabitacion,
@@ -65,6 +67,37 @@ export class HabitacionComponent implements OnInit {
       error: (err) => {
         console.error(err);
         Swal.fire('Error', 'No se pudo obtener la información de la habitación', 'error');
+      }
+    });
+  }
+
+  cambiarEstadoHabitacion(idEstado: 3 | 4, nombreEstado: string): void {
+    if (!this.idHabitacion) {
+      return;
+    }
+
+    Swal.fire({
+      title: '¿Cambiar estado?',
+      text: `La habitación pasará a ${nombreEstado}.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cambiar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.habitacionesService.cambiarEstadoHabitacion(this.idHabitacion!, idEstado).subscribe({
+          next: () => {
+            if (this.habitacionActual) {
+              this.habitacionActual.idEstadoHabitacion = idEstado;
+              this.habitacionActual.estadoHabitacion = nombreEstado;
+            }
+            Swal.fire('Actualizada', `La habitación ahora está en ${nombreEstado}.`, 'success');
+          },
+          error: (error) => {
+            console.error(error);
+            Swal.fire('Error', 'No se pudo cambiar el estado de la habitación', 'error');
+          },
+        });
       }
     });
   }

@@ -66,4 +66,11 @@ export class HabitacionesService {
       }),
     );
   }
+
+  cambiarEstadoHabitacion(idHabitacion: number, idEstado: 3 | 4): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/${idHabitacion}/estado/${idEstado}`,
+      {},
+    );
+  }
 }

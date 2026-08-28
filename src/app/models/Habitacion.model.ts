@@ -23,3 +23,7 @@ export interface DatosHabitacion{
     capacidad: number;
     estadoHabitacion: string;
 }
+
+export interface CambioEstadoHabitacionRequest {
+  idEstadoHabitacion: 3 | 4;
+}

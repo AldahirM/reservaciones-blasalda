@@ -184,6 +184,40 @@ mat-form-field {
     margin-right: 7px;
 }
 
+.status-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.status-actions__label {
+    color: #819095;
+    font-size: .76rem;
+}
+
+.status-button {
+    padding: 10px 12px;
+    border: 1px solid #dbe4e4;
+    color: #52676d;
+    background: #fff;
+    cursor: pointer;
+    font-size: .76rem;
+    font-weight: 700;
+}
+
+.status-button--clean:hover {
+    color: #967237;
+    border-color: #d9c08a;
+    background: #fffaf0;
+}
+
+.status-button--maintenance:hover {
+    color: #a45454;
+    border-color: #e2baba;
+    background: #fff7f7;
+}
+
 @media (max-width: 600px) {
     .booking-page {
         padding: 28px 16px 52px;
@@ -219,6 +253,16 @@ mat-form-field {
     }
 
     .form-actions button {
+        width: 100%;
+    }
+
+    .status-actions {
+        align-items: stretch;
+        flex-direction: column;
+        margin-left: 0;
+    }
+
+    .status-button {
         width: 100%;
     }
 }

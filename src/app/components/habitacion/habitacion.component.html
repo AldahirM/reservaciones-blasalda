@@ -70,6 +70,17 @@
 
         <div class="form-actions">
             <span><i class="fa fa-info-circle"></i> Revisa los datos antes de guardar.</span>
+            <div class="status-actions" *ngIf="isEditingMode">
+                <span class="status-actions__label">Cambiar estado:</span>
+                <button type="button" class="status-button status-button--clean"
+                    (click)="cambiarEstadoHabitacion(3, 'LIMPIEZA')">
+                    <i class="fa fa-refresh"></i> Limpieza
+                </button>
+                <button type="button" class="status-button status-button--maintenance"
+                    (click)="cambiarEstadoHabitacion(4, 'MANTENIMIENTO')">
+                    <i class="fa fa-wrench"></i> Mantenimiento
+                </button>
+            </div>
             <button type="submit" [disabled]="habitacionForm.invalid">
                 <i class="fa fa-save"></i> {{ isEditingMode ? 'Actualizar' : 'Guardar' }}
             </button>
